@@ -1,15 +1,8 @@
 'use strict';
-/*
-1. make a filterByYear function
-*/
-
-'use strict';
 
 (function () {
   let data = "no data";
-  let allYearsData = "no data";
   let svgLinePlot = ""; // keep SVG reference in global scope
-  let svgScatterGraph = "";
 
   // load data and make scatter plot after window loads
   window.onload = function () {
@@ -21,7 +14,6 @@
     d3.csv("./data/exports.csv")
       .then((csvData) => {
         data = csvData
-        allYearsData = csvData;
         makeLinePlot(data);
       });
   }
@@ -46,54 +38,54 @@
     options.text(function (d) { return d.Country })
       .attr('value', function (d) { return d.Country })
 
-    var data_by_year = data.filter(s => s["Country"] == "Austria")
+    var data_by_year = data.filter(s => s["Country"] == "Afghanistan, I.R. of")
 
-    let temp = [parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2]),
-    parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2]),
-    parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2]),
-    parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2]),
-    parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2])]
+    let temp = [Number(parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2])),
+      Number(parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2])),
+      Number(parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2])),
+      Number(parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2])),
+      Number(parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2]))]
 
     let dat = [
-      { "year": 2009, "expense": parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2010, "expense": parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2011, "expense": parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2012, "expense": parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2013, "expense": parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2014, "expense": parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2015, "expense": parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2016, "expense": parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2017, "expense": parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2]) },
-      { "year": 2018, "expense": parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2]) },
+      { "year": 2009, "expense": Number(parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2010, "expense": Number(parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2011, "expense": Number(parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2012, "expense": Number(parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2013, "expense": Number(parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2014, "expense": Number(parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2015, "expense": Number(parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2016, "expense": Number(parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2017, "expense": Number(parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2])) },
+      { "year": 2018, "expense": Number(parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2])) },
     ]
 
     dropDown.on("change", function () {
       var selected = this.value;
       data_by_year = csvData.filter(s => s["Country"] == selected)
-      let temp = [parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2]),
-        parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2]),
-        parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2]),
-        parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2]),
-        parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2]), parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2])]
+      temp = [Number(parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2])),
+        Number(parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2])),
+        Number(parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2])),
+        Number(parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2])),
+        Number(parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2])), Number(parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2]))]
       svgLinePlot.selectAll("*").remove()
 
       // find data limits
-      let axesLimits = findMinMax([2008, 2019], temp);
+      axesLimits = findMinMax([2009, 2018], temp);
 
       // draw axes and return scaling + mapping functions
-      let mapFunctions = drawAxes(axesLimits, "year", "expense", svgLinePlot, { min: 50, max: 450 }, { min: 50, max: 450 });
+      mapFunctions = drawAxes(axesLimits, "year", "expense", svgLinePlot, { min: 50, max: 450 }, { min: 50, max: 450 });
 
       dat = [
-        {"year": 2009, "expense" : parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2])},
-        {"year": 2010, "expense" : parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2])},
-        {"year": 2011, "expense" : parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2])},
-        {"year": 2012, "expense" : parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2])},
-        {"year": 2013, "expense" : parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2])},
-        {"year": 2014, "expense" : parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2])},
-        {"year": 2015, "expense" : parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2])},
-        {"year": 2016, "expense" : parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2])},
-        {"year": 2017, "expense" : parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2])},
-        {"year": 2018, "expense" : parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2])},
+        {"year": 2009, "expense" : Number(parseFloat(data_by_year[0][`2009`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2010, "expense" : Number(parseFloat(data_by_year[0][`2010`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2011, "expense" : Number(parseFloat(data_by_year[0][`2011`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2012, "expense" : Number(parseFloat(data_by_year[0][`2012`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2013, "expense" : Number(parseFloat(data_by_year[0][`2013`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2014, "expense" : Number(parseFloat(data_by_year[0][`2014`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2015, "expense" : Number(parseFloat(data_by_year[0][`2015`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2016, "expense" : Number(parseFloat(data_by_year[0][`2016`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2017, "expense" : Number(parseFloat(data_by_year[0][`2017`].replace(/,/, '')).toFixed([2]))},
+        {"year": 2018, "expense" : Number(parseFloat(data_by_year[0][`2018`].replace(/,/, '')).toFixed([2]))},
       ]
       // plot data as points and add tooltip functionality
       plotData(mapFunctions, dat);
@@ -104,7 +96,7 @@
     data = data_by_year
 
     // find data limits
-    let axesLimits = findMinMax([2008, 2019], temp);
+    let axesLimits = findMinMax([2009, 2018], temp);
 
     // draw axes and return scaling + mapping functions
     let mapFunctions = drawAxes(axesLimits, "year", "expense", svgLinePlot, { min: 50, max: 450 }, { min: 50, max: 450 });
@@ -119,21 +111,21 @@
   // make title and axes labels
   function makeLabels() {
     svgLinePlot.append('text')
-      .attr('x', 50)
+      .attr('x', 150)
       .attr('y', 40)
       .style('font-size', '14pt')
       .text("Export Revenue by Country");
 
     svgLinePlot.append('text')
-      .attr('x', 130)
+      .attr('x', 225)
       .attr('y', 490)
       .style('font-size', '10pt')
       .text('Year');
 
     svgLinePlot.append('text')
-      .attr('transform', 'translate(15, 300)rotate(-90)')
+      .attr('transform', 'translate(10, 350)rotate(-90)')
       .style('font-size', '10pt')
-      .text('Revenue');
+      .text('Revenue (US Dollars, Millions)');
   }
 
   // plot all the data points on the SVG
@@ -224,10 +216,4 @@
       yMax: yMax
     }
   }
-
-  // format numbers
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
 })();
